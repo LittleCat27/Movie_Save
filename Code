@@ -1,0 +1,76 @@
+using System;
+using System.IO;
+
+namespace GuardarPeliculas
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            byte seleccion = 0;
+            bool salir = false;
+            while (salir == false)
+            {
+                Console.Clear();
+                Console.WriteLine("1.Agregar Pelicula\n2.Ver Lista de Peliculas\n3.Salir\n\nIngrese su elección: ");
+                seleccion = Convert.ToByte(Console.ReadLine());
+                switch (seleccion)
+                {
+                    case 1: guardarPelicula(); break;
+                    case 2: mostrarPeliculas(); break;
+                    case 3: salir = true; break;
+                    default: Console.WriteLine("Selección Invalida"); break;
+                }
+            }
+            Console.WriteLine("Ingrese una tecla para terminar... ");
+            Console.ReadKey();
+        }
+
+
+
+        static void guardarPelicula()
+        {
+            string texto = "", texto2 = "";
+            string path = @"C:\Users\Gashe\Desktop\Archivos\Archivos Visual\Peliculas.txt";
+
+            Console.Write("Ingrese el Nombre de la Pelicula: ");
+
+            texto = Console.ReadLine();
+            Console.Write("Ingrese el Director de la Pelicula: ");
+            texto2 = Console.ReadLine();
+            texto = ("Pelicula: " + texto + "| Director: " + texto2);
+
+            Console.Write("Ingrese el Año de estreno: ");
+            texto2 = Console.ReadLine();
+            texto = (texto + "| Año de estreno: " + texto2);
+
+            Console.Write("Ingrese los generos de la pelicula: ");
+            texto2 = Console.ReadLine();
+            texto = (texto + "| Generos: " + texto2);
+
+
+
+            StreamWriter writer = File.AppendText(path);
+            writer.WriteLine(texto);
+            writer.Close();
+            
+        }
+
+        static void mostrarPeliculas()
+        {
+            string path = @"C:\Users\Gashe\Desktop\Archivos\Archivos Visual\Peliculas.txt";
+            string line = "";
+
+            StreamReader archivo= new StreamReader(path);
+
+            while ((line = archivo.ReadLine()) != null)
+            {
+                Console.WriteLine(line);
+
+            }
+
+            archivo.Close();
+            Console.ReadKey();
+        }
+    }
+}
